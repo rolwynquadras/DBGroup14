@@ -5,7 +5,7 @@ CREATE TABLE LandLord
 	(LandLordID int PRIMARY KEY NOT NULL,
 	FirstName varchar(100),
 	LastName varchar(100),
-	ContactNumber int,
+	ContactNumber char(10),
 	EmailID varchar(100)
 	);
 
@@ -34,7 +34,7 @@ CREATE TABLE Vendors
 	LastName varchar(100),
 	FirstName varchar(100),
 	EmailID varchar(100),
-	ContactNumber int,
+	ContactNumber char(10),
 	ServiceName varchar(100)
 	);
 
@@ -54,31 +54,33 @@ CREATE TABLE Employees
 	Gender varchar(100),
 	HireDate date,
 	EmailID varchar(100),
-	ContactNumber int,
+	ContactNumber char(10),
 	);
 
 -- 7.MemberAccount Table
 CREATE TABLE MemberAccount
-	(MemberAccountID int PRIMARY KEY NOT NULL,
-	EmailID varchar(100),
+	(MemberAccountID int PRIMARY KEY not null,
+	EmailID varchar(100) unique not null,
 	FirstName varchar(100),
 	LastName varchar(100),
 	CompanyName varchar(255),
-	ContactNumber int,
+	ContactNumber char(10),
 	Country varchar(100),
 	State varchar(100),
-	ZipCode smallint,
+	ZipCode char(5),
 	MemberType varchar(50)
 	);
 
 -- 8.Login Table
 CREATE TABLE Login
-	(LoginID int PRIMARY KEY NOT NULL,
-	MemberAccountID int REFERENCES MemberAccount(MemberAccountID),
-	Timestamp datetime,
-	Password varchar(255), --encrypt this
-	UserName varchar(255)
+	(LoginID int PRIMARY KEY IDENTITY(100, 1),
+	MemberAccountID int REFERENCES MemberAccount(MemberAccountID) UNIQUE,
+	Timestamp datetime DEFAULT GETDATE(),
+	Password varbinary(255), --encrypt this
+	UserName varchar(255) UNIQUE
 	)
+
+--alter table Login add constraint account_check check (MemberAccountID = (select MemberAccountID from Login))
 
 -- 9.Booking
 CREATE TABLE Bookings
@@ -93,7 +95,6 @@ CREATE TABLE Bookings
 	);
 
 -- 10.Payment
-drop table if exists Payments;
 CREATE TABLE Payments
 	(PaymentID int PRIMARY KEY NOT NULL,
 	PaymentHistory varchar(255),
@@ -134,7 +135,7 @@ CREATE TABLE LegalConsultant
 	FirstName varchar(100),
 	LastName varchar(100),
 	EmailID varchar(100),
-	ContactNumber int
+	ContactNumber char(10)
 	);
 
 -- 15.Lease
@@ -146,3 +147,19 @@ CREATE TABLE Lease
 	leaseDurationInYears float,
 	LegalConsultantID int REFERENCES LegalConsultant(LegalConsultantID)
 	);
+
+	drop table Lease
+	drop table LegalConsultant
+	drop table RentersInsurance
+	drop table Feedback
+	drop table Subscription
+	drop table Payments
+	drop table Bookings
+	drop table Login
+	drop table MemberAccount
+	drop table Employees
+	drop table Services
+	drop table Vendors
+	drop table Property
+	drop table Location
+	drop table LandLord
