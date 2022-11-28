@@ -1,0 +1,15 @@
+1. Phone number - Check all chars are 0-9 and not other characters and length as well.
+2. Password encryption
+3. Compute number of days in Bookings table
+4. Check if memberAccount exists before letting the user book a space. Also check if the property is booked and if yes don't let others book
+
+Procedure
+Creating member account - check if email exists, encrypt password before inserting
+
+Views
+1. View for top properties occupied
+2. View frr revenue generated from bookings
+3. View for properties booked by location and displaying the top locations
+4. Decrypt and view password
+5. Highest rated properties
+6. View for top customer feedback
