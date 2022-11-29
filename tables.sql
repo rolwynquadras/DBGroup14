@@ -101,7 +101,8 @@ CREATE TABLE Payments
 	PaymentMethod varchar(100),
 	PaymentPlan varchar(100),
 	BillingAddress varchar(255),
-	BookingID int REFERENCES Bookings(BookingID)
+	TotalAmountWithTax money,
+	BookingID int REFERENCES Bookings(BookingID),
 	);
 
 -- 11.Subscription
